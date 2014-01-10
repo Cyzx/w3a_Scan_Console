@@ -49,13 +49,13 @@ Structure(结构)
 - │   └── SQLinjectScan.pyc
 - └── README.md
 
-
-
 Help (帮助)
 ========================
    前期编写的都是以模块的形式出现，后期当框架建立起来以后，将会扫瞄的模块将会以
 插件的形式出现。目前的想法主要是想将一些常见的功能实现出来，待后续需求确定以后再
 对整个扫瞄的架构进行调整。
+	所有的更新日志以及W3A SCAN开发进度，且看以下地址：
+	link: https://github.com/smarttang/w3a_Scan_Console/wiki/_pages
 
 
 Readme (说明)
