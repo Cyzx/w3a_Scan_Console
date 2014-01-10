@@ -17,17 +17,37 @@ w3a_scan_console 是什么？
 
 Structure(结构)
 =======================
+- ├── conf  [配置文件目录]
+- │   └── db.ini [数据库配置]
+- ├── dic [字典配置]
+- │   └── dictionary.dic [目录字典]
+- ├── lib [公共库]
+- │   ├── DB_module.py
+- │   ├── __init__.py
+- │   ├── __init__.pyc
+- │   ├── log_exec.py
+- │   └── log_exec.pyc
+- ├── LICENSE
+- ├── log [日志管理]
+- │   ├── module [模块错误日志]
+- │   └── sys  [主程序错误日志]
+- │       └── f461c96407e745f44f3ae750787e19b6.log
+- ├── main.py [主程序]
+- ├── module [待改写的模块]
+- │   ├── db_module.py
+- │   ├── directory-test_module.py
+- │   ├── form-test_module.py
+- │   ├── nmap_module.py
+- │   └── sprider_module.py
+- ├── plugin [插件位置]
+- │   ├── DirectioryScan.py
+- │   ├── DirectioryScan.pyc
+- │   ├── __init__.py
+- │   ├── __init__.pyc
+- │   ├── SQLinjectScan.py
+- │   └── SQLinjectScan.pyc
+- └── README.md
 
-- config/  --------------------[配置目录]
-- --config.ini  --------------[数据库配置]
-- log/ -----------------[错误日志]
-- main.py--------------[主程序]
-- module/ ---------------[程序检测模块]
-- --db_module.py -------[数据库模块]
-- --form-test_module.py ------[页面(表单|ajax)识别模块]
-- --nmap_module.py -------------[Nmap扫描模块]
-- --sprider_module.py ---------[页面爬虫模块]
-- --directory-test_module.py -----[目录探测模块]
 
 
 Help (帮助)
