@@ -61,13 +61,41 @@ Readme (说明)
 ========================
   - 1) 该项目会长期维护，后续会有web界面.(W3a Scan)
   - 2) 该项目更新的方式主要是以git更新的方式为准
-  - 3) 模块的进度意义：
-      --10% 构思完成
-      --20% 代码正在编写
-      --30%-50% 代码正在更新,细节正在重写
-      --60%-80% 代码正在测试,修复bug和测试模块是否可用
-      --90% 校正bug,留下使用例子,确定插入sql结构
-      --100% 基本功能实现完成
+  - 3) 模块的进度意义：</br>
+      --10% 构思完成</br>
+      --20% 代码正在编写</br>
+      --30%-50% 代码正在更新,细节正在重写</br>
+      --60%-80% 代码正在测试,修复bug和测试模块是否可用</br>
+      --90% 校正bug,留下使用例子,确定插入sql结构</br>
+      --100% 基本功能实现完成</br>
+
+Exec Demo(执行Demo)
+=======================
+root@smart:~/tmp_poject/w3a_Scan_Console# python main.py </br>
+---------------------------------------------------- </br>
+															</br>
+	 w3a_scan_console		
+															
+	       by:Smart		
+															
+----------------------------------------------------
+[*] Module List:
+[*] + Module: DirectioryScan
+[*] + Module: SQLinjectScan
+[*] -----------------------------------
+[*] Load Module: Directory_Scan target: http://www.baidu.com/
+[*] Directory Check Result Insert to Database!
+[*] Finish Check Directory_Scan target:http://www.baidu.com/
+[*] Load Module: Directory_Scan target: http://163.com
+[*] Directory Check Result Insert to Database!
+[*] Finish Check Directory_Scan target:http://163.com
+[*] Load Module: SQLinject_Scan target: http://www.baidu.com/
+[*] SQLinject Check Result Insert to Database!
+[*] Finish Check SQLinject_Scan target:http://www.baidu.com/
+[*] Load Module: SQLinject_Scan target: http://163.com
+[*] SQLinject Check Result Insert to Database!
+[*] Finish Check SQLinject_Scan target:http://163.com
+
 
 FindMe (找我)
 =======================
