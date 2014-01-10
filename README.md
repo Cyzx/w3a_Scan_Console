@@ -33,6 +33,7 @@ Structure(结构)
 - │   └── sys  [主程序错误日志]
 - │       └── f461c96407e745f44f3ae750787e19b6.log
 - ├── main.py [主程序]
+- ├── image [图片展示]
 - ├── module [待改写的模块]
 - │   ├── db_module.py
 - │   ├── directory-test_module.py
@@ -71,7 +72,7 @@ Readme (说明)
 
 Exec Demo(执行Demo)
 =======================
-<img style="max-width:100%;" title="Run example" alt="Run example" src="https://raw.github.com/smarttang/w3a_Soc/image/demo.png">
+<img style="max-width:100%;" title="Run example" alt="Run example" src="https://raw.github.com/smarttang/w3a_Soc/image/demo1.png">
 
 FindMe (找我)
 =======================
