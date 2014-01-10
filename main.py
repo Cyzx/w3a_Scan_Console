@@ -25,11 +25,15 @@ class Scan_Main:
 			self.readmade()
 			# 输出现有模块(并且自检)
 			self.__module()
-			# 导入模块
-			self.__loadPlugins()
 		except:
-			self.print_load("Import Error, Or Path Not true!")
-			sys.exit(0)
+			self.print_load("Import Module is Error!")
+		else:
+			try:
+				# 导入模块
+				self.__loadPlugins()
+			except:
+				self.print_load("Loading Plugins Error!")
+				sys.exit(0)
 	
 	# 程序LOGO
 	def readmade(self):
@@ -78,14 +82,14 @@ class Scan_Main:
 		# 把自身传给模块
 		o.setScan_Main(self)
 		## 开始处理
-		all_target=["http://www.baidu.com/","http://163.com"]
+		all_target=["192.168.31.110","192.168.31.113"]
 		while len(all_target)>0:
 			for i in all_target:
 				o.start(i)
 				o.update_date()
 				o.stop(i)
 				all_target.remove(i)
-
+	
 	# 标准屏幕输出
 	def print_log(self,log):
 		print "[*] %s" % log
