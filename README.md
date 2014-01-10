@@ -71,31 +71,7 @@ Readme (说明)
 
 Exec Demo(执行Demo)
 =======================
-root@smart:~/tmp_poject/w3a_Scan_Console# python main.py </br>
----------------------------------------------------- </br>
-															</br>
-	 w3a_scan_console		
-															
-	       by:Smart		
-															
-----------------------------------------------------
-[*] Module List:
-[*] + Module: DirectioryScan
-[*] + Module: SQLinjectScan
-[*] -----------------------------------
-[*] Load Module: Directory_Scan target: http://www.baidu.com/
-[*] Directory Check Result Insert to Database!
-[*] Finish Check Directory_Scan target:http://www.baidu.com/
-[*] Load Module: Directory_Scan target: http://163.com
-[*] Directory Check Result Insert to Database!
-[*] Finish Check Directory_Scan target:http://163.com
-[*] Load Module: SQLinject_Scan target: http://www.baidu.com/
-[*] SQLinject Check Result Insert to Database!
-[*] Finish Check SQLinject_Scan target:http://www.baidu.com/
-[*] Load Module: SQLinject_Scan target: http://163.com
-[*] SQLinject Check Result Insert to Database!
-[*] Finish Check SQLinject_Scan target:http://163.com
-
+<img style="max-width:100%;" title="Run example" alt="Run example" src="https://raw.github.com/smarttang/w3a_Soc/image/demo.png">
 
 FindMe (找我)
 =======================
