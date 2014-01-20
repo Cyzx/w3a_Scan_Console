@@ -10,14 +10,19 @@
 import nmap
 from lib.process_exec import process_class
 import time
+import sys
 
 class Web_Scan_Frame:
 	
 	def setScan_Main(self, scan_main):
 		self.scan_main=scan_main
 
-	def start(self,target):
+	# 放置:扫描目标,扫描模板
+	def start(self,target,temple):
+		# 需要根据扫描模板来查询是否有该模块扫描的功能
 		self.scan_main.print_log('Nmap Scan Target: %s' % target)
+		if temple==1:
+			return 
 		obj=Nmap_self_module(target)
 		obj.nmap_do()
 
@@ -48,20 +53,20 @@ class Nmap_self_module:
         nm.scan(hosts=self.Ip_list,arguments='-T4 -O')
         for ip in nm.all_hosts():
             try:
-                print ip
-                print nm[ip]['status']['state']
-                print nm[ip]['addresses']['mac']
-                print nm[ip]['hostname']
+                print '[*]'+ip
+                print '[*]'+nm[ip]['status']['state']
+                print '[*]'+nm[ip]['addresses']['mac']
+                print '[*]'+nm[ip]['hostname']
 
                 try:
                     for  port in nm[ip]['tcp'].keys():
-                        print "port: "+ str(port) + " name: " + nm[ip]['tcp'][port]['name'] + " status: " + nm[ip]['tcp'][port]['state']
+                        print "[*] port: "+ str(port) + " name: " + nm[ip]['tcp'][port]['name'] + " status: " + nm[ip]['tcp'][port]['state']
                 except:
                     print "tcp Error"
 
                 try:
                     for os in nm[ip]['osmatch']:
-                        print "name: "+os['name'] + " accuracy: "+os['accuracy']
+                        print "[*] name: "+os['name'] + " accuracy: "+os['accuracy']
                 except:
                     print "osmatch error"
             except:

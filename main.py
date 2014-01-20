@@ -4,6 +4,7 @@ import sys
 import hashlib
 import random
 import string
+from lib.process_exec import process_class
 from lib.log_exec import Log_do
 
 
@@ -82,12 +83,20 @@ class Scan_Main:
 		# 把自身传给模块
 		o.setScan_Main(self)
 		## 开始处理
-		all_target=["192.168.31.110","192.168.31.113"]
+		# 同时最多并发10个线程任务
+		t=process_class(10);
+		# 任务列表	
+		all_target=["192.168.31.168","192.168.31.133"]
+		# 
 		while len(all_target)>0:
 			for i in all_target:
-				o.start(i)
+				# 第一个是目标列表 第二个是模板参数
+				# 针对模板会去数据库中查找对应的定义，如果定义了全部扫描，则所有的模块都会扫描
+				# 否则只会扫描该扫的插件
+				#o.start(i,1)
+				o.start(i,1)
 				o.update_date()
-				o.stop(i)
+				o.stop()
 				all_target.remove(i)
 	
 	# 标准屏幕输出
