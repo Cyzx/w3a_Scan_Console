@@ -29,12 +29,12 @@ class Scan_Main:
 		except:
 			self.print_load("Import Module is Error!")
 		else:
-			#try:
+			try:
 				# 导入模块
-			self.__loadPlugins()
-			#except:
-		#		self.print_load("Loading Plugins Error!")
-	#			sys.exit(0)
+				self.__loadPlugins()
+			except:
+				self.print_load("Loading Plugins Error!")
+				sys.exit(0)
 	
 	# 程序LOGO
 	def readmade(self):
