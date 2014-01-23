@@ -34,6 +34,7 @@ Structure(结构)
 - │       └── f461c96407e745f44f3ae750787e19b6.log
 - ├── main.py [主程序]
 - ├── image [图片展示]
+- ├── db_script [数据库脚本]
 - ├── module [待改写的模块]
 - │   ├── db_module.py
 - │   ├── directory-test_module.py
@@ -70,7 +71,7 @@ Readme (说明)
       --90% 校正bug,留下使用例子,确定插入sql结构</br>
       --100% 基本功能实现完成</br>
 
-Exec Demo(执行Demo)
+Exec Demo(执行Demo)(2014-1-23)
 =======================
 <img style="max-width:100%;" title="Run example" alt="Run example" src="https://raw2.github.com/smarttang/w3a_Scan_Console/master/image/demo1.png">
 
