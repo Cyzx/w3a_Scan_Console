@@ -8,7 +8,6 @@
 ###########################################
 
 import nmap
-from lib.process_exec import process_class
 import time
 import sys
 
@@ -17,58 +16,37 @@ class Web_Scan_Frame:
 	def setScan_Main(self, scan_main):
 		self.scan_main=scan_main
 
-	# 放置:扫描目标,扫描模板
 	def start(self,target,temple):
+		# 在这要判断temple的类型,如果类型中存在该扫描项目
+		# 则运行
+		# 否则就忽略
+		self.__object_do(target)
+		
+	# 放置:扫描目标,扫描模板
+	def __object_do(self,target):
 		# 需要根据扫描模板来查询是否有该模块扫描的功能
 		self.scan_main.print_log('Nmap Scan Target: %s' % target)
-		if temple==1:
-			return 
-		obj=Nmap_self_module(target)
-		obj.nmap_do()
+		nm=nmap.PortScanner()
+		# 判断长度,查看到底是多个还是一个。
+		if(target.split(';') >=2):
+			self.target_list=" ".join(target.split(';'))
+		else:
+			self.target_list=target
+		nm.scan(hosts=self.target_list,arguments='-T4 -O')
+		# 操作扫描结果
+		for ip in nm.all_hosts():
+			self.scan_main.print_log('Result ip: %s' % ip)
+			for item in nm[ip].all_protocols():
+				# 系统指纹识别
+				if item=="osmatch":
+					for os in nm[ip]['osmatch']:
+						self.scan_main.print_log("os name: %s, persend: %s%% " % (os['name'],os['accuracy']))
+				elif item=="tcp":
+					for port in nm[ip]['tcp'].keys():
+						self.scan_main.print_log("port: %s ,status: %s , servie: %s" % (port,nm[ip]['tcp'][port]['state'],nm[ip]['tcp'][port]['name']))
 
-	def stop(self,target):
-		time.sleep(1)
-		self.scan_main.print_log("Finish Nmap target:%s" % target)
-	
-	def update_date(self):
-		self.scan_main.print_log("Nmap Result Insert to Database!")
+	def stop(self):
+		self.scan_main.print_log("Finish Nmap target:%s" % self.target_list)
 
 def getPluginClass():
 	return Web_Scan_Frame
-
-class Nmap_self_module:
-   def __init__(self,Ip_list):
-      self.Ip_list=Ip_list
-
-   def make_rep(self,item):
-      if item =="":
-         return None
-      elif item is None:
-         return None
-      else:
-         return item
-
-   def  nmap_do(self):
-        nm=nmap.PortScanner()
-        nm.scan(hosts=self.Ip_list,arguments='-T4 -O')
-        for ip in nm.all_hosts():
-            try:
-                print '[*]'+ip
-                print '[*]'+nm[ip]['status']['state']
-                print '[*]'+nm[ip]['addresses']['mac']
-                print '[*]'+nm[ip]['hostname']
-
-                try:
-                    for  port in nm[ip]['tcp'].keys():
-                        print "[*] port: "+ str(port) + " name: " + nm[ip]['tcp'][port]['name'] + " status: " + nm[ip]['tcp'][port]['state']
-                except:
-                    print "tcp Error"
-
-                try:
-                    for os in nm[ip]['osmatch']:
-                        print "[*] name: "+os['name'] + " accuracy: "+os['accuracy']
-                except:
-                    print "osmatch error"
-            except:
-                print "Update or status or mac Error"
-

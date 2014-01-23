@@ -16,9 +16,6 @@ class process_class:
 		pool.close()
 		pool.join()
 	
-	def _doing_anything(self):
-		pass
-
 	def _getResults(self):
 		for item in self.exec_results:
 			self.results.append(item.get())

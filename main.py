@@ -29,12 +29,12 @@ class Scan_Main:
 		except:
 			self.print_load("Import Module is Error!")
 		else:
-			try:
+			#try:
 				# 导入模块
-				self.__loadPlugins()
-			except:
-				self.print_load("Loading Plugins Error!")
-				sys.exit(0)
+			self.__loadPlugins()
+			#except:
+		#		self.print_load("Loading Plugins Error!")
+	#			sys.exit(0)
 	
 	# 程序LOGO
 	def readmade(self):
@@ -86,7 +86,7 @@ class Scan_Main:
 		# 同时最多并发10个线程任务
 		t=process_class(10);
 		# 任务列表	
-		all_target=["192.168.31.168","192.168.31.133"]
+		all_target=["www.cideko.com;www.henningkarlsen.com","www.moreanartscenter.org","www.tmd.go.th"]
 		# 
 		while len(all_target)>0:
 			for i in all_target:
@@ -95,7 +95,6 @@ class Scan_Main:
 				# 否则只会扫描该扫的插件
 				#o.start(i,1)
 				o.start(i,1)
-				o.update_date()
 				o.stop()
 				all_target.remove(i)
 	
