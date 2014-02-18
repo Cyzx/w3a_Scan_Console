@@ -70,31 +70,33 @@ class Scan_Main:
 		# 更新数据，将前30条未初始化的任务设置为待调度的状态
 		db_key.execute_sql("update w3a_Scan_Task set t_status_num=1 where t_status_num=0 limit 30")
 		# 查出10条已经待调度状态的扫描任务，并进行处理
-		## 1\将任务读取出来并存储
-		temp_data=db_key.find_all("select * from w3a_Scan_Task where t_status_num=1 limit 10")
-		## 2\将取出的任务状态更新为正在扫描状态
-		db_key.execute_sql("update w3a_Scan_Task set t_status_num=2 where t_status_num=1 limit 10")
-		## 3\分析T_type任务类型
-		for t_data in temp_data:
-			# 如果是Web扫描
-			if t_data[2]==0:
-				# 选择对应的扫描模板
-				t_scan_temp=db_key.find_all("select tl_mode,tl_switch from w3a_Scan_Task_Template where id="+t_data[3]+" and tl_type=0")
-				if t_scan_temp:
-					# 判断该模板是否启用
-					if t_scan_temp[1]==0:
-						module_name=t_scan_temp[0].split(';')
-						self.__runScan(t_data[0],t_data[6],module_name)
-					else:
-						# 如果没有启用，则直接更新任务状态为异常停止
-						db_key.execute_sql("update w3a_Scan_Task set t_status_num=4,t_status=100 where id="+temp_data[0])
-						continue
-				else:
-					db_key.execute_sql("update w3a_Scan_Task set t_status_num=4,t_status=100 where id="+temp_data[0])
-					continue
+		while True:
+			## 1\将任务读取出来并存储
+			temp_data=db_key.find_all("select * from w3a_Scan_Task where t_status_num=1 limit 10")
+			if temp_data:
+				## 2\将取出的任务状态更新为正在扫描状态
+				db_key.execute_sql("update w3a_Scan_Task set t_status_num=2 where t_status_num=1 limit 10")
+				## 3\分析T_type任务类型
+				for t_data in temp_data:
+					# 如果是Web扫描
+					if t_data[2]==0:
+						# 选择对应的扫描模板
+						t_scan_temp=db_key.find_all("select tl_mode,tl_switch from w3a_Scan_Task_Template where id="+t_data[3]+" and tl_type=0")
+						if t_scan_temp:
+							# 判断该模板是否启用
+							if t_scan_temp[1]==0:
+								module_name=t_scan_temp[0].split(';')
+								self.__runScan(t_data[0],t_data[6],module_name)
+							else:
+								# 如果没有启用，则直接更新任务状态为异常停止
+								db_key.execute_sql("update w3a_Scan_Task set t_status_num=4,t_status=100 where id="+temp_data[0])
+								continue
+						else:
+							db_key.execute_sql("update w3a_Scan_Task set t_status_num=4,t_status=100 where id="+temp_data[0])
+							continue
 
-			elif t_data[2]==1:
-				pass
+					elif t_data[2]==1:
+						pass
 
 	# 程序加载模块
 	def __loadPlugins(self):
@@ -120,9 +122,11 @@ class Scan_Main:
 		# 任务列表	
 		t=Db_module()
 		# 每次运行先
-		all_item=t.find_all("select * from w3a_Scan_Task")
-		for a in all_item:
-			print a[2]
+		all_item=t.find_all("select * from w3a_Scan_Task where t_status_num=2")
+		if all_item:
+			print all_item
+		else:
+			print None
 		#all_target=["www.cideko.com;www.henningkarlsen.com","www.moreanartscenter.org","www.tmd.go.th"]
 		# 
 		#while len(all_target)>0:

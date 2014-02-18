@@ -32,7 +32,11 @@ class Db_module:
 	def find_all(self,sql_script):
 		try:
 			self.cur.execute(sql_script)
-			return self.cur.fetchall()
+			results=self.cur.fetchall()
+			if results==None:
+				return None
+			else:
+				return results
 		except:
 			print "[*] DB FindAll Error SQL: %s" % sql_script
 
