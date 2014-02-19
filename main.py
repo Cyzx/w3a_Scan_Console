@@ -73,7 +73,7 @@ class Scan_Main:
 		while True:
 			## 1\将任务读取出来并存储
 			temp_data=db_key.find_all("select * from w3a_Scan_Task where t_status_num=1 limit 10")
-			if temp_data:
+			if temp_data>0:
 				## 2\将取出的任务状态更新为正在扫描状态
 				db_key.execute_sql("update w3a_Scan_Task set t_status_num=2 where t_status_num=1 limit 10")
 				## 3\分析T_type任务类型
@@ -86,7 +86,8 @@ class Scan_Main:
 							# 判断该模板是否启用
 							if t_scan_temp[1]==0:
 								module_name=t_scan_temp[0].split(';')
-								self.__runScan(t_data[0],t_data[6],module_name)
+								# 传入任务ID\任务目标\模块名称
+								self.__loadPlugins(t_data[0],t_data[6],module_name)
 							else:
 								# 如果没有启用，则直接更新任务状态为异常停止
 								db_key.execute_sql("update w3a_Scan_Task set t_status_num=4,t_status=100 where id="+temp_data[0])
@@ -97,14 +98,22 @@ class Scan_Main:
 
 					elif t_data[2]==1:
 						pass
+			else:
+				break
 
 	# 程序加载模块
-	def __loadPlugins(self):
+	def __loadPlugins(self,task_id,task_list,module_name):
 		ScanFilepath=os.path.split(os.path.realpath(__file__))[0]
 		if os.path.exists(ScanFilepath+"/plugin"):
 			for filename in os.listdir(ScanFilepath+'/plugin'):
 				if not filename.endswith('.py') or filename.startswith('_'):
 					continue
+				plugins_name=os.path.splitext(filename)[0]
+				plugin=__import__("plugin."+plugins_name,fromlist=[plugins_name])
+				clazz=plugin.getPluginClass()
+				obj=clazz()
+				obj.setScan_Main(self)
+				#操作数据
 				self.__runPlugins(filename)
 
 	# 程序执行模块
